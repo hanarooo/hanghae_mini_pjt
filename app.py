@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, json, session
 import os
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from datetime import datetime
 from json.decoder import JSONDecodeError
 
@@ -22,18 +23,40 @@ def index():
 # 다이어리 시작
 @app.route('/diary')
 def diary_list():
-    all_diaries = Diary.query.all()
-    return render_template('diary.html', all_diaries=all_diaries)
+    all_diaries = Diary.query.order_by(desc(Diary.diaryId)).all()
 
-@app.route('/search')
+    if all_diaries:
+        diary_per_page = 10
+        total_diary = len(all_diaries)
+    
+        if total_diary > diary_per_page:
+            page = request.args.get('page', 1, type=int)
+            start_index = (page - 1) * diary_per_page
+            end_index = start_index + diary_per_page
+
+            current_page = all_diaries[start_index:end_index]
+
+            # 페이지 번호 계산
+            total_pages = (total_diary + diary_per_page - 1) // diary_per_page
+
+            return render_template('diary.html', data=current_page, page_num=total_pages, page=page, all_diaries=all_diaries)
+        else:
+            # 게시글이 10개 이하인 경우 페이지 번호를 숨기고 전체 데이터를 반환
+            return render_template('diary.html', data=all_diaries, page_num=1, all_diaries=all_diaries)
+    else:
+        return "저장된 일기가 없습니다."
+
+
+
+@app.route('/diary/search')
 def search():
-    data = []
-    # URL에서 'query' 파라미터를 가져옵니다.
-    query = request.args.get('query', '').lower()
-    # 검색어에 해당하는 자료를 찾습니다.
-    search_results = [item for item in data if query in item['title'].lower()]
+    query = request.args.get('query', '')
+    results = []
 
-    return render_template('search_results.html', query=query, results=search_results)
+    if query:
+        results = Diary.query.filter(db.func.lower(Diary.title).contains(
+            query.lower())).order_by(desc(Diary.diaryId)).all()
+    return render_template('diary_search.html', data=results)
 
 
 @app.route('/diary/regist', methods=['GET', 'POST'])
@@ -122,6 +145,7 @@ def sign_in():
 
 ##############################################################################################
 # 대시보드 페이지 - 로그인이 필요한 페이지
+
 
 @app.route('/dashboard')
 def dashboard():
