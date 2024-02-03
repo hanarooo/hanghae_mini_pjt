@@ -58,8 +58,6 @@
         .table-a:hover {
             color: #0055FF;
         }
-
-        
     </style>
 </head>
 
@@ -77,7 +75,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link active text-white" href="/">diary</a>
-                        <a class="nav-link text-white" aria-current="page" href="/todo">todo</a>
+                        <a class="nav-link text-white" aria-current="page" href="/">todo</a>
                         <a class="nav-link text-white" href="/memo">memo</a>
                     </div>
                 </div>
@@ -107,9 +105,9 @@
         <tbody>
             {% for diary in data %}
             <tr>
-                <th scope="row">{{ diary.diaryId }}</th>
-                <td><a class="table-a" href="{{ url_for('diary_detail', num=diary.diaryId) }}">{{ diary.title }}</a></td>
-                <td>{{ diary.editTime }}</td>
+                <th scope="row">{{ diary.diary_id }}</th>
+                <td><a class="table-a" href="{{ url_for('diary_detail', num=diary.diary_id) }}">{{ diary.title }}</a></td>
+                <td>{{ diary.edit_time }}</td>
             </tr>
             {% endfor %}
         </tbody>

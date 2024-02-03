@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>todolist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Kanit&display=swap" rel="stylesheet">
+    <style>
+        * {
+            background-color: unset;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            font-family: 'Kanit', sans-serif;
+            font-family: 'Gowun Dodum', sans-serif;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .Todolist {
+            margin: 0;
+            padding: 0 250px;
+        }
+
+        li {
+            list-style: none;
+            margin-top: 10px;
+            height: 40px;
+        }
+
+        #wrap {
+            width: 100%;
+            height: 100%;
+        }
+
+        #container {
+            width: 100%;
+            height: calc(100% - 235px);
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .todolistBox {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .data_input {
+            width: 600px;
+        }
+
+        .checkbox {
+            width: 60px;
+            height: 60px;
+        }
+
+        .li {
+            display: flex;
+            justify-content: center;
+            background-color: #808080;
+            align-items: center;
+            color: black;
+            border-radius: 8px;
+        }
+
+        .todolistTable,
+        ul {
+            width: 100%;
+        }
+
+        #addvalue {
+            background-color: #808080;
+            width: 100%;
+            border-radius: 8px;
+            height: 35px;
+            color: white;
+        }
+
+        #addvalue:hover {
+            border: 2px solid rgb(0, 81, 255);
+        }
+
+        #addDate {
+            width: 577px;
+            background-color: #4D4D4D;
+            color: white;
+            border-radius: 8px;
+            height: 35px;
+        }
+
+        .task {
+            width: 100%;
+            font-size: 20px;
+            color: white;
+        }
+
+        .date {
+            width: 600px;
+            height: 100%;
+            background-color: #4D4D4D;
+            font-size: 20px;
+            color: white;
+        }
+
+        .del-but {
+            border-radius: 8px;
+            border: 0 solid black;
+            width: 60px;
+            height: 40px;
+            font-weight: 600;
+            font-size: 28px;
+            color: black;
+            background-color: white;
+        }
+
+        .del-but:hover {
+            font-weight: 600;
+            background-color: #ED1C24;
+            color: white;
+        }
+
+        .inputBox {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 250px;
+        }
+
+        .button {
+            width: 50px;
+        }
+
+        footer {
+            color: white;
+        }
+
+        .input {
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        #btn {
+            background-color: white;
+            color: white;
+            border: 0 solid black;
+            border-radius: 10px;
+            font-weight: 600;
+            background-color: #0055FF;
+            height: 35px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 100px;
+            font-weight: 800;
+            margin-bottom: 50px;
+        }
+
+        input::placeholder {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header>
+            <nav class="navbar navbar-expand-lg " style="background-color: #1A1A1A;height: 80px; width: 2600px;">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-white" style="margin-left: 1110px; font-size: 21pt;" href="#">THING</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link active text-white" href="/diary">Diary</a>
+                            <a class="nav-link text-white" aria-current="page" href="/">To-Do</a>
+                            <a class="nav-link text-white" href="/memo">Memo</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div id="container">
+            <div class="content">
+                <h1>To-DO List</h1>
+                <div class="todolistBox">
+                    <div class="inputBox">
+                        <div class="input">
+                            <input type="text" id="addvalue" placeholder="할 일 추가하기">
+                            <input type="date" id="addDate" placeholder="날짜 선택">
+                            <button type="button" id="btn" onclick="addTodo()">ADD</button>
+                        </div>
+                    </div>
+                    <div class="todolistTable">
+                        <ul id="addTodo" class="Todolist">
+                            {% for todo in todos %}
+                            <!-- Modify the li element in the for loop to include a data-completed attribute and display the date -->
+                            <li class="li" data-id="{{ todo.id }}" data-completed="{{ todo.completed }}"
+                                data-date="{{ todo.date|default('') }}">
+                                <input type="checkbox" id="check_{{ todo.id }}" class="checkbox" {% if
+                                    todo.completed%}checked{% endif %}>
+                                <span class="task">{{ todo.task }}</span>
+                                <!-- Display the date if available -->
+                                <span class="date">{% if todo.date %}{{ todo.date.strftime('%Y-%m-%d') }}{% endif
+                                    %}</span>
+                                <button class="del-but" onclick="deleteTodo('{{ todo.id }}')">X</button>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li id="footer" class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+            </ul>
+            <p class="text-center text-body-secondary text-white">© 2023 Company, Inc</p>
+        </footer>
+    </div>
+    <script defer>
+        function addTodo() {
+            var inputValue = document.getElementById("addvalue").value;
+            var dateValue = document.getElementById("addDate").value;
+
+            if (inputValue.trim() !== "" && dateValue.trim() !== "") {
+                var formattedDate = new Date(dateValue).toISOString().split('T')[0];  // Convert to ISO format
+
+                fetch('/api/todolist/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ task: inputValue, date: formattedDate }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.success) {
+                            var todoList = document.getElementById("addTodo");
+                            var newTodo = document.createElement("li");
+                            newTodo.setAttribute('data-id', data.id);
+                            newTodo.setAttribute('data-completed', false);
+                            newTodo.setAttribute('data-date', data.date || '');
+                            newTodo.setAttribute('class', 'li');
+
+                            var checkbox = document.createElement("input");
+                            checkbox.type = "checkbox";
+                            checkbox.id = "check_" + data.id;
+                            checkbox.className = "checkbox";
+
+                            var taskSpan = document.createElement("span");
+                            taskSpan.textContent = data.task;
+                            taskSpan.className = "task";
+
+                            var dateSpan = document.createElement("span");
+                            dateSpan.className = "date";
+                            dateSpan.textContent = data.date || '';
+
+                            var deleteButton = document.createElement("button");
+                            deleteButton.textContent = "X";
+                            deleteButton.className = 'del-but';
+                            deleteButton.onclick = function () {
+                                deleteTodo(data.id);
+                            };
+
+                            newTodo.appendChild(checkbox);
+                            newTodo.appendChild(taskSpan);
+                            newTodo.appendChild(dateSpan);
+                            newTodo.appendChild(deleteButton);
+
+                            todoList.appendChild(newTodo);
+
+                            document.getElementById("addvalue").value = "";
+                            document.getElementById("addDate").value = "";
+                        } else {
+                            alert("할 일 추가에 실패했습니다: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                alert("할 일과 날짜를 입력하세요.");
+            }
+        }
+
+        function deleteTodo(todoId) {
+            // 서버로 삭제 요청
+            fetch(`/api/todolist/${todoId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Add this line to see the response in the console
+
+                    if (data.success) {
+                        var todoItem = document.querySelector(`li[data-id="${todoId}"]`);
+                        todoItem.remove();
+                    } else {
+                        alert("할 일 삭제에 실패했습니다: " + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+
+        // 체크 박스 상태 변경 시 서버에 업데이트 요청
+        document.addEventListener('change', function (event) {
+            if (event.target.classList.contains('checkbox')) {
+                var todoId = event.target.parentElement.getAttribute('data-id');
+                var completed = event.target.checked;
+
+                fetch(`/api/todolist/${todoId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ completed: completed }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert("체크 박스 상태 업데이트에 실패했습니다: " + data.message);
+                            // Rollback the checkbox state if the update fails
+                            event.target.checked = !completed;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Rollback the checkbox state if there is an error
+                        event.target.checked = !completed;
+                    });
+            }
+        });
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

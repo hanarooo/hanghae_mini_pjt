@@ -8,75 +8,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sign up</title>
+
+    <style>
+        body {
+            background-color: #050505;
+        }
+
+        h1 {
+            color: white;
+            font-size: 140px;
+            margin-left: 200px;
+            margin-top: 300px;
+            width: fit-content;
+        }
+
+        p {
+            margin-bottom: 2px;
+            margin-top: 20px;
+            color: white;
+            font-size: 24px;
+        }
+
+        input {
+            width: 400px;
+            height: 35px;
+            background-color: gray;
+        }
+
+        .main {
+            margin-left: 220px;
+            margin-top: 60px;
+            color: white;
+            display: flex;
+            margin-top: 20px;
+            width: fit-content;
+        }
+
+        .button {
+            margin-left: 5px;
+            margin-top: 30px;
+        }
+
+
+        a {
+            text-decoration: none;
+            color: white;
+            margin-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
+    <h1>SIGN UP</h1>
 
-    <h1>회원가입</h1>
-
-    <form action="{{ url_for('sign_up') }}" method="post">
-        <div>
-            <label for="newId" class="form-label">Make ID</label>
-            <input type="text" id="newId" name="newId" required>
-            <a href="#" onclick="checkDuplicate()">중복검사</a>
-
-            <label for="newPwd">Make Password</label>
-            <input type="password" id="newPwd" name="newPwd" required>
-
-            <label for="newName">Name</label>
-            <input type="text" id="newName" name="newName" required>
-        </div>
-
-        <button type="submit" id="signupButton">가입하기</button>
-    </form>
-
+    <div class="main">
+        <form action="{{ url_for('sign_up') }}" method="post">
+            <div class="makeid">
+                <p>
+                    Make User ID
+                </p>
+                <label for="newId" class="form-label"></label>
+                <input type="text" id="newId" name="newId" required>
+                <a href="#" onclick="checkDuplicate()">중복검사</a>
+            </div>
+            <div class="makepw">
+                <p>
+                    Make Password
+                </p>
+                <label for="newPwd"></label>
+                <input type="password" id="newPwd" name="newPwd" required>
+            </div>
+            <div class="name">
+                <p>
+                    Name
+                </p>
+                <label for="newName"></label>
+                <input type="text" id="newName" name="newName" required>
+            </div>
+            <div class="button">
+                <button type="submit" id="signupButton" class="btn btn-primary">가입하기</button>
+            </div>
+        </form>
+    </div>
     <div class="modal" id="myModal">
         <p id="modalMessage"></p>
         <button onclick="closeModal()">닫기</button>
     </div>
-
-    <script>
-        function checkDuplicate() {
-            var newId = document.getElementById("newId").value;
-            fetch('/check', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 'newId': newId }),
-            })
-                .then(response => response.json())
-                .then(data => handleDuplicateResponse(data))
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-
-
-        function handleDuplicateResponse(data) {
-            if (data.result === 'duplicate') {
-                document.getElementById('modalMessage').innerText = '이미 사용 중인 아이디입니다.';
-                document.getElementById('myModal').style.display = 'block';
-            } else if (data.result === 'success') {
-                document.getElementById('modalMessage').innerText = '사용 가능한 아이디입니다.';
-                document.getElementById('myModal').style.display = 'block';
-            } else {
-            }
-        }
-
-        
-        function closeModal() {
-            document.getElementById('myModal').style.display = 'none';
-        }
-    </script>
-
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
+<script>
+    function checkDuplicate() {
+        var newId = document.getElementById("newId").value;
+        fetch('/check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'newId': newId }),
+        })
+            .then(response => response.json())
+            .then(data => handleDuplicateResponse(data))
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+
+    function handleDuplicateResponse(data) {
+        if (data.result === 'duplicate') {
+            document.getElementById('modalMessage').innerText = '이미 사용 중인 아이디입니다.';
+            document.getElementById('myModal').style.display = 'block';
+        } else if (data.result === 'success') {
+            document.getElementById('modalMessage').innerText = '사용 가능한 아이디입니다.';
+            document.getElementById('myModal').style.display = 'block';
+        } else {
+        }
+    }
+
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+</script>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </html>
